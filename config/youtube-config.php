@@ -4,7 +4,7 @@
  */
 
 // YouTube API Konfiguration
-define('YOUTUBE_API_KEY', 'AIzaSyADqbmAnH1bqjSpWQ80DTCyoIAXoceokrE'); // Hier den echten API Key eintragen
+define('YOUTUBE_API_KEY', '; // Hier den echten API Key eintragen
 define('YOUTUBE_CHANNEL_ID', 'UCSIQsJz88OfyACfTr3hZ7vA'); // 4AM Techno Kanal ID
 
 // Cache-Einstellungen
