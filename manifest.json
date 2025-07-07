@@ -1,0 +1,22 @@
+{
+  "name": "4AM Techno",
+  "short_name": "4AM Techno",
+  "start_url": "/index.php",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#C05427",
+  "icons": [
+    {
+      "src": "/icon-192x192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}

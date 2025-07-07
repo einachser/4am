@@ -1,0 +1,97 @@
+# IONOS SSL & index.php Redirect
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# 1. Weiterleitung von index.php auf /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+RewriteRule ^index\.php$ https://%{HTTP_HOST}/ [R=301,L]
+
+# 2. Weiterleitung von HTTP auf HTTPS
+RewriteCond %{SERVER_PORT} !=443
+RewriteCond %{REQUEST_URI} !^/\.well-known/(acme-challenge|pki-validation)/.*
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# 3. URLs mit Großbuchstaben auf Kleinbuchstaben weiterleiten
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteRule ^(.*)$ ${lc:$1} [R=301,L]
+
+# 4. Trailing Slashes entfernen (außer für Verzeichnisse)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+</IfModule>
+# IONOS SSL & index.php Redirect END
+
+# Sprachanpassungen - Header immer mitsenden
+<FilesMatch "\.(php|html)$">
+    Header set Content-Language "de-DE"
+</FilesMatch>
+
+# Content-Security-Policy als Schutz vor XSS-Angriffen
+<IfModule mod_headers.c>
+    Header always set Content-Security-Policy "default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gstatic.com *.google-analytics.com www.googletagmanager.com www.youtube-nocookie.com *.ytimg.com cdnjs.cloudflare.com open.spotify.com embed.spotify.com s3.amazonaws.com *.list-manage.com *.mailchimp.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com cdn-images.mailchimp.com; img-src 'self' https: data: blob: *.mailchimp.com; font-src 'self' data: fonts.gstatic.com cdnjs.cloudflare.com; connect-src 'self' *.google-analytics.com *.googleapis.com *.gstatic.com *.googlevideo.com open.spotify.com *.list-manage.com *.mailchimp.com; frame-src 'self' www.youtube-nocookie.com open.spotify.com embed.spotify.com www.canva.com *.mailchimp.com; media-src 'self' https: data: blob:;"
+</IfModule>
+
+# Komprimierung aktivieren
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE image/svg+xml
+    
+    # Komprimierung für alle Textdateien
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE text/*
+    </IfModule>
+</IfModule>
+
+# Expires Header setzen für Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# Browser-Caching mit Cache-Control Headers
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
+    <FilesMatch "\.(html|php)$">
+        Header set Cache-Control "public, max-age=3600"
+    </FilesMatch>
+</IfModule>
+
+# WOFF/WOFF2 Mime-Types für Font Awesome
+<IfModule mod_mime.c>
+    AddType application/font-woff2 .woff2
+    AddType application/font-woff .woff
+</IfModule>
+
+# Schutz der .htaccess-Datei
+<files ~ "^.*\.([Hh][Tt][Aa])">
+    order allow,deny
+    deny from all
+    satisfy all
+</files>

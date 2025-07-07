@@ -1,0 +1,26 @@
+{
+    "name": "manus-ai/php-sitemap-generator",
+    "description": "A comprehensive PHP sitemap generator supporting XML, HTML, Text, Mobile, Image, and Video sitemaps, with search engine pinging and cron job support.",
+    "type": "library",
+    "keywords": ["sitemap", "php", "seo", "xml", "html", "google", "bing", "cron", "image sitemap", "video sitemap", "mobile sitemap"],
+    "homepage": "https://github.com/manus-ai/php-sitemap-generator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Manus AI",
+            "email": "ai@manus.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SitemapGenerator\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
+

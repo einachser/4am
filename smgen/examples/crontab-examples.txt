@@ -1,0 +1,73 @@
+# PHP Sitemap Generator - Cron-Job Beispiele
+#
+# Diese Datei enthält Beispiele für Cron-Jobs zur automatischen
+# Sitemap-Generierung. Fügen Sie die gewünschten Zeilen zu Ihrer
+# crontab hinzu mit: crontab -e
+
+# Täglich um 2:00 Uhr alle Sitemaps generieren
+0 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --cron --quiet
+
+# Stündlich nur XML-Sitemap aktualisieren (für häufig aktualisierte Sites)
+0 * * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=xml --cron --quiet
+
+# Wöchentlich detaillierte Analyse aller Medien-Sitemaps (Sonntag 3:00 Uhr)
+0 3 * * 0 /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=image,video,mobile --detailed --cron --quiet
+
+# Monatlich vollständige Sitemap-Generierung mit Ping-Test (1. des Monats, 1:00 Uhr)
+0 1 1 * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=all --test-ping --cron
+
+# Alle 6 Stunden XML und HTML Sitemaps aktualisieren
+0 */6 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=xml,html --cron --quiet
+
+# Täglich um 4:00 Uhr mit Logging in separate Datei
+0 4 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --cron >> /var/log/sitemap-generator.log 2>&1
+
+# Beispiel für mehrere Websites (verschiedene Konfigurationen)
+0 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/website1-config.json --cron --quiet
+15 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/website2-config.json --cron --quiet
+30 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/website3-config.json --cron --quiet
+
+# Entwicklungsumgebung: Alle 30 Minuten während Arbeitszeiten (Mo-Fr 9-17 Uhr)
+*/30 9-17 * * 1-5 /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/dev-config.json --generate=xml --cron --quiet
+
+# E-Commerce Site: Häufige Updates für Produktseiten
+0 */2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/shop-config.json --generate=xml,image --cron --quiet
+
+# News-Website: Sehr häufige Updates
+*/15 * * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/news-config.json --generate=xml --cron --quiet
+
+# Blog: Tägliche Updates mit Social Media Ping
+0 6 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/blog-config.json --generate=xml,html --cron && curl -X POST "https://api.example.com/notify-sitemap-update"
+
+# Backup-Strategie: Wöchentliche Vollgenerierung mit Archivierung
+0 1 * * 0 /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=all --cron && tar -czf /backup/sitemaps-$(date +\%Y\%m\%d).tar.gz /pfad/zu/output/
+
+# Monitoring: Täglich Konfiguration validieren
+0 0 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --validate-config --quiet || echo "Sitemap-Generator Konfigurationsfehler" | mail -s "Sitemap Generator Alert" admin@example.com
+
+# Performance-optimiert: Nur bei Änderungen generieren (mit Cache)
+*/30 * * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=xml --cron --quiet 2>/dev/null
+
+# Mehrsprachige Website: Verschiedene Sitemaps für verschiedene Sprachen
+0 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config-de.json --cron --quiet
+10 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config-en.json --cron --quiet
+20 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config-fr.json --cron --quiet
+
+# Staging-Umgebung: Nur Werktags
+0 3 * * 1-5 /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/staging-config.json --generate=xml --cron --quiet
+
+# Fehlerbehandlung: Bei Fehlern E-Mail senden
+0 2 * * * /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --cron || echo "Sitemap-Generierung fehlgeschlagen" | mail -s "Sitemap Generator Error" admin@example.com
+
+# Ressourcenschonend: Nur nachts und am Wochenende
+0 2 * * 0,6 /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=all --detailed --cron
+0 3 * * 1-5 /usr/bin/php /pfad/zu/sitemap-cli.php --config=/pfad/zu/config.json --generate=xml --cron --quiet
+
+# WICHTIGE HINWEISE:
+# 1. Ersetzen Sie "/pfad/zu/" mit dem tatsächlichen Pfad zu Ihren Dateien
+# 2. Stellen Sie sicher, dass PHP über die Kommandozeile verfügbar ist
+# 3. Testen Sie Cron-Jobs zunächst manuell
+# 4. Überwachen Sie Log-Dateien auf Fehler
+# 5. Passen Sie die Häufigkeit an Ihre Website-Update-Frequenz an
+# 6. Berücksichtigen Sie Server-Ressourcen bei der Zeitplanung
+

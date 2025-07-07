@@ -1,0 +1,86 @@
+{
+  "base_url": "https://4amtechno.com",
+  "output_dir": "/kunden/homepages/5/d4298728434/htdocs/smgen/output",
+  "max_urls": 50000,
+  "max_depth": 10,
+  "delay_between_requests": 1,
+  
+  "enabled_sitemap_types": [
+    "xml",
+    "html",
+    "text",
+    "mobile",
+    "image",
+    "video"
+  ],
+  
+  "xml_sitemap_filename": "sitemap.xml",
+  "xml_sitemap_index_filename": "sitemap-index.xml",
+  "xml_max_urls_per_file": 50000,
+  "xml_compress": true,
+  
+  "html_sitemap_filename": "sitemap.html",
+  "html_template": null,
+  "html_group_by_directory": true,
+  
+  "text_sitemap_filename": "sitemap.txt",
+  
+  "mobile_sitemap_filename": "sitemap-mobile.xml",
+  "mobile_user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
+  
+  "image_sitemap_filename": "sitemap-images.xml",
+  "image_extensions": ["jpg", "jpeg", "png", "gif", "webp", "svg"],
+  "image_max_per_page": 1000,
+  
+  "video_sitemap_filename": "sitemap-videos.xml",
+  "video_extensions": ["mp4", "avi", "mov", "wmv", "flv", "webm"],
+  
+  "crawl_external_links": false,
+  "follow_redirects": true,
+  "ignore_query_parameters": false,
+  "exclude_patterns": [
+    "/admin/*",
+    "/wp-admin/*",
+    "/login",
+    "/logout",
+    "*.pdf",
+    "*.doc",
+    "*.docx"
+  ],
+  "include_patterns": [],
+  
+  "ping_search_engines": true,
+  "ping_google": true,
+  "ping_bing": true,
+  "ping_yandex": false,
+  "ping_baidu": false,
+  
+  "enable_logging": true,
+  "log_file": "logs/sitemap-generator.log",
+  "log_level": "info",
+  
+  "enable_caching": true,
+  "cache_duration": 3600,
+  "cache_file": "cache/urls.cache",
+  
+  "user_agent": "Sitemap Generator Bot 1.0",
+  "timeout": 30,
+  "follow_robots_txt": true,
+  
+  "default_priority": 0.5,
+  "default_changefreq": "weekly",
+  "priority_rules": {
+    "/": 1.0,
+    "/about": 0.8,
+    "/contact": 0.7,
+    "/blog": 0.9,
+    "/products": 0.8
+  },
+  "changefreq_rules": {
+    "/": "daily",
+    "/blog": "daily",
+    "/news": "hourly",
+    "/products": "weekly"
+  }
+}
+

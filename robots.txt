@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /includes/
+Disallow: /upload.php
+Allow: /css/
+Allow: /js/
+Sitemap: https://www.4amtechno.com/sitemap.xml
+
+# Crawl-delay bessere Server-Performance
+Crawl-delay: 1

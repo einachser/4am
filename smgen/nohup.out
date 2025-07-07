@@ -1,0 +1,12 @@
+
+Fatal error: Uncaught Error: Interface "SitemapGenerator\Generators\SitemapGeneratorInterface" not found in /homepages/5/d4298728434/htdocs/smgen/src/generators/AbstractSitemapGenerator.php:10
+Stack trace:
+#0 /homepages/5/d4298728434/htdocs/smgen/src/generators/XmlSitemapGenerator.php(5): require_once()
+#1 /homepages/5/d4298728434/htdocs/smgen/src/SitemapGenerator.php(17): require_once('/homepages/5/d4...')
+#2 /homepages/5/d4298728434/htdocs/smgen/vendor/composer/ClassLoader.php(571): include('/homepages/5/d4...')
+#3 /homepages/5/d4298728434/htdocs/smgen/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /homepages/5/d4298728434/htdocs/smgen/sitemap-cli.php(96): Composer\Autoload\ClassLoader->loadClass()
+#5 /homepages/5/d4298728434/htdocs/smgen/sitemap-cli.php(33): SitemapCLI->initializeGenerator()
+#6 /homepages/5/d4298728434/htdocs/smgen/sitemap-cli.php(405): SitemapCLI->__construct()
+#7 {main}
+  thrown in /homepages/5/d4298728434/htdocs/smgen/src/generators/AbstractSitemapGenerator.php on line 10
